@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ClockClone</string>
+    <string name="title_main_activity">Clock Clone</string>
+    <string name="tab_title_alarms">Alarms</string>
+    <string name="tab_title_world_clock">World Clock</string>
+    <string name="tab_title_stopwatch">Stopwatch</string>
+    <string name="tab_title_timer">Timer</string>
+</resources>

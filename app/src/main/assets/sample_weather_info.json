@@ -1,0 +1,25 @@
+[
+  {
+    "LocalObservationDateTime": "2021-08-30T10:36:00+01:00",
+    "EpochTime": 1630316160,
+    "WeatherText": "Light rain",
+    "WeatherIcon": 13,
+    "HasPrecipitation": true,
+    "PrecipitationType": "Rain",
+    "IsDayTime": true,
+    "Temperature": {
+      "Metric": {
+        "Value": 27.8,
+        "Unit": "C",
+        "UnitType": 17
+      },
+      "Imperial": {
+        "Value": 82,
+        "Unit": "F",
+        "UnitType": 18
+      }
+    },
+    "MobileLink": "http://www.accuweather.com/en/ng/lagos/4607/current-weather/4607?lang=en-us",
+    "Link": "http://www.accuweather.com/en/ng/lagos/4607/current-weather/4607?lang=en-us"
+  }
+]

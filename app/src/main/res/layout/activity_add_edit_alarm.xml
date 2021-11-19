@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.example.clockclone.util.Constants"/>
+        <variable
+            name="alarmFormUI"
+            type="com.example.clockclone.domain.ui.AlarmFormUI" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <Button
+                android:id="@+id/button_add_edit_alarm_cancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:text="Cancel" />
+
+            <Button
+                android:id="@+id/button_add_edit_alarm_save"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Save" />
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="8dp">
+
+            <LinearLayout
+                android:id="@+id/linearlayout_add_edit_alarm_date_and_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:text="@{alarmFormUI.displayDate}"
+                        tools:text="Date" />
+
+                    <TextView
+                        android:id="@+id/textview_add_edit_alarm_change_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:drawablePadding="8dp"
+                        app:drawableStartCompat="@drawable/ic_baseline_date_range_24"
+                        app:drawableTint="@color/teal_200"
+                        android:gravity="center_vertical"
+                        android:text="Date"
+                        android:textColor="@color/teal_200"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <NumberPicker
+                        android:id="@+id/numberpicker_hour"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:value="@={alarmFormUI.timestampHour}"/>
+                    <NumberPicker
+                        android:id="@+id/numberpicker_minute"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:value="@={alarmFormUI.timestampMinute}"/>
+                    <NumberPicker
+                        android:id="@+id/numberpicker_am_pm"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:value="@={alarmFormUI.timestampAmPm}"
+                        android:visibility="gone"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/linearlayout_add_edit_alarm_date_and_time">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:divider="@drawable/divider"
+                    android:showDividers="middle">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Repeat"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:textColor="#F00"
+                                android:text="S"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:background="@{alarmFormUI.daysOfWeek.get(0) ? @drawable/yellow : @drawable/white}"
+                                android:onClick="@{() -> alarmFormUI.toggleDayOfWeek(0)}"
+                                android:visibility="@{alarmFormUI.sundayFirstDay ? View.VISIBLE : View.GONE}"/>
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="M"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:background="@{alarmFormUI.daysOfWeek.get(1) ? @drawable/yellow : @drawable/white}"
+                                android:onClick="@{() -> alarmFormUI.toggleDayOfWeek(1)}"/>
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="T"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:background="@{alarmFormUI.daysOfWeek.get(2) ? @drawable/yellow : @drawable/white}"
+                                android:onClick="@{() -> alarmFormUI.toggleDayOfWeek(2)}" />
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="W"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:background="@{alarmFormUI.daysOfWeek.get(3) ? @drawable/yellow : @drawable/white}"
+                                android:onClick="@{() -> alarmFormUI.toggleDayOfWeek(3)}" />
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="T"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:background="@{alarmFormUI.daysOfWeek.get(4) ? @drawable/yellow : @drawable/white}"
+                                android:onClick="@{() -> alarmFormUI.toggleDayOfWeek(4)}"/>
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="F"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:background="@{alarmFormUI.daysOfWeek.get(5) ? @drawable/yellow : @drawable/white}"
+                                android:onClick="@{() -> alarmFormUI.toggleDayOfWeek(5)}" />
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="S"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:background="@{alarmFormUI.daysOfWeek.get(6) ? @drawable/yellow : @drawable/white}"
+                                android:onClick="@{() -> alarmFormUI.toggleDayOfWeek(6)}" />
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:textColor="#F00"
+                                android:text="S"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:background="@{alarmFormUI.daysOfWeek.get(0) ? @drawable/yellow : @drawable/white}"
+                                android:onClick="@{() -> alarmFormUI.toggleDayOfWeek(0)}"
+                                android:visibility="@{alarmFormUI.sundayFirstDay ? View.GONE : View.VISIBLE}"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/layout_alarm_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Alarm Name"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{alarmFormUI.name ?? `None`}"
+                            tools:text="None"/>
+                    </LinearLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layout_snooze"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Snooze"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{alarmFormUI.snoozeDisplay}"/>
+                        </LinearLayout>
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="@={alarmFormUI.snooze}"
+                            android:minHeight="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <LinearLayout
+                        android:id="@+id/layout_sound_volume"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sound and Volume"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{alarmFormUI.soundName}"/>
+                    </LinearLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layout_vibration"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Vibration"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{alarmFormUI.vibrationName}"/>
+                        </LinearLayout>
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="@={alarmFormUI.vibrationEnabled}"
+                            android:minHeight="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Increasing Volume"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="@={alarmFormUI.increasingVolume}"
+                            android:minHeight="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+            </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+
+</layout>

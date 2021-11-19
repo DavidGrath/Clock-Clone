@@ -1,0 +1,2 @@
+rootProject.name = "ClockClone"
+include ':app'

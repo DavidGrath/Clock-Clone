@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/menuitem_world_clock_edit" app:showAsAction="never" android:title="Edit"/>
+    <item android:id="@+id/menuitem_world_clock_update" app:showAsAction="never" android:title="Update Weather Info"/>
+    <item android:id="@+id/menuitem_world_clock_settings" app:showAsAction="never" android:title="Weather settings"/>
+</menu>

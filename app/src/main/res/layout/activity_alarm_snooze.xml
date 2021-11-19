@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activities.AlarmSnoozeActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_alarm_snooze"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="@drawable/snooze_toggle_background">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="On"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch_snooze_enabled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Interval"/>
+    <RadioGroup
+        android:id="@+id/radiogroup_interval"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/radiobutton_interval_group_5_minutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5 minutes" />
+        <RadioButton
+            android:id="@+id/radiobutton_interval_group_10_minutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10 minutes"/>
+        <RadioButton
+            android:id="@+id/radiobutton_interval_group_15_minutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15 minutes"/>
+        <RadioButton
+            android:id="@+id/radiobutton_interval_group_30_minutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30 minutes"/>
+    </RadioGroup>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Repeat"/>
+    <RadioGroup
+        android:id="@+id/radiogroup_repeat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/radiobutton_repeat_group_3_times"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3 times"/>
+        <RadioButton
+            android:id="@+id/radiobutton_repeat_group_5_times"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5 times"/>
+        <RadioButton
+            android:id="@+id/radiobutton_repeat_group_forever"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forever"/>
+    </RadioGroup>
+    <Button
+        android:id="@+id/button_alarm_snooze_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Done"/>
+    </LinearLayout>
+</LinearLayout>

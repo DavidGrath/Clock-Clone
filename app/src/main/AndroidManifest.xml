@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.clockclone">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
+        android:name=".framework.ClockClone"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ClockClone">
+        <activity android:name=".ui.activities.AlarmVibrationActivity"></activity>
+        <activity android:name=".ui.activities.AlarmSoundVolumeActivity" />
+        <activity android:name=".ui.activities.AlarmSnoozeActivity" />
+        <activity
+            android:name=".ui.activities.SelectWorldClockCityActivity"
+            android:parentActivityName=".ui.activities.MainActivity" />
+        <activity
+            android:name=".ui.activities.AlarmActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:showOnLockScreen="true"
+            android:taskAffinity="" />
+        <activity
+            android:name=".ui.activities.TimeUpActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:showOnLockScreen="true"
+            android:taskAffinity="" />
+        <activity android:name=".ui.activities.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.activities.AddEditAlarmActivity" />
+
+        <receiver android:name=".framework.receivers.StopwatchBroadcastReceiver" />
+        <receiver android:name=".framework.receivers.TimerBroadcastReceiver" />
+
+        <service
+            android:name=".framework.services.StopwatchService"
+            android:enabled="true" />
+        <service
+            android:name=".framework.services.TimerService"
+            android:enabled="true" />
+    </application>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+</manifest>

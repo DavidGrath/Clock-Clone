@@ -1,0 +1,59 @@
+[
+  {
+    "Version": 1,
+    "Key": "4607",
+    "Type": "City",
+    "Rank": 15,
+    "LocalizedName": "Lagos",
+    "EnglishName": "Lagos",
+    "PrimaryPostalCode": "",
+    "Region": {
+      "ID": "AFR",
+      "LocalizedName": "Africa",
+      "EnglishName": "Africa"
+    },
+    "Country": {
+      "ID": "NG",
+      "LocalizedName": "Nigeria",
+      "EnglishName": "Nigeria"
+    },
+    "AdministrativeArea": {
+      "ID": "LA",
+      "LocalizedName": "Lagos",
+      "EnglishName": "Lagos",
+      "Level": 1,
+      "LocalizedType": "State",
+      "EnglishType": "State",
+      "CountryID": "NG"
+    },
+    "TimeZone": {
+      "Code": "WAT",
+      "Name": "Africa/Lagos",
+      "GmtOffset": 1,
+      "IsDaylightSaving": false,
+      "NextOffsetChange": null
+    },
+    "GeoPosition": {
+      "Latitude": 6.45,
+      "Longitude": 3.428,
+      "Elevation": {
+        "Metric": {
+          "Value": 36,
+          "Unit": "m",
+          "UnitType": 5
+        },
+        "Imperial": {
+          "Value": 118,
+          "Unit": "ft",
+          "UnitType": 0
+        }
+      }
+    },
+    "IsAlias": false,
+    "SupplementalAdminAreas": [],
+    "DataSets": [
+      "AirQualityCurrentConditions",
+      "AirQualityForecasts"
+    ]
+  }
+]
