@@ -45,23 +45,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkAllPermissions();
         }
-        activityMainBinding  = ActivityMainBinding.inflate(getLayoutInflater());
+        activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setSupportActionBar(activityMainBinding.toolbarMain);
         getSupportActionBar().setTitle(R.string.title_main_activity);
 
         preferences = getPreferences(Context.MODE_PRIVATE);
 
-        //TODO Today 09/Sep 2021 I learned you shouldn't try to use savedInstanceState when working
-        // with FragmentStateAdapter because it is responsible for handling state
-//        if(savedInstanceState == null) {
-            alarmsFragment = AlarmsFragment.createInstance();
-            worldClockFragment = WorldClockFragment.createInstance();
-            stopwatchFragment = StopwatchFragment.createInstance();
-            timerFragment = TimerFragment.createInstance();
-//        }
+        alarmsFragment = AlarmsFragment.createInstance();
+        worldClockFragment = WorldClockFragment.createInstance();
+        stopwatchFragment = StopwatchFragment.createInstance();
+        timerFragment = TimerFragment.createInstance();
 
         final int[] titles = new int[]{R.string.tab_title_alarms, R.string.tab_title_world_clock, R.string.tab_title_stopwatch, R.string.tab_title_timer};
         Fragment[] list = new Fragment[]{alarmsFragment, worldClockFragment, stopwatchFragment, timerFragment};
@@ -77,11 +73,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int position;
         position = intent.getIntExtra(Constants.Extras.Titles.MAIN_ACTIVITY_FRAGMENT_INDEX, -1);
-        if(position != -1) {
+        if (position != -1) {
             activityMainBinding.viewPagerMain.setCurrentItem(position, false);
         } else {
             position = preferences.getInt(PREFERENCE_FRAGMENT_POSITION, -1);
-            if(position == -1) {
+            if (position == -1) {
                 position = 0;
             }
             activityMainBinding.viewPagerMain.setCurrentItem(position);
@@ -100,9 +96,8 @@ public class MainActivity extends AppCompatActivity {
     @TargetApi(Build.VERSION_CODES.M)
     private void checkAllPermissions() {
         String[] permissions = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE};
-        //TODO Possibly EasyPermissions
-        for(String perm : permissions) {
-            if(ContextCompat.checkSelfPermission(this, perm) != PackageManager.PERMISSION_GRANTED) {
+        for (String perm : permissions) {
+            if (ContextCompat.checkSelfPermission(this, perm) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{perm}, REQUEST_CODE_PERMISSIONS);
             }
         }
@@ -111,6 +106,5 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        //TODO Convince user why I should see storage
     }
 }

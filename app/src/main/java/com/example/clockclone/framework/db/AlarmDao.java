@@ -37,7 +37,6 @@ public interface AlarmDao {
     @Query("DELETE FROM Alarm WHERE id = :id")
     Maybe<Void> deleteAlarm(int id);
 
-    //TODO Remove later
     @Query("DELETE FROM Alarm")
     Maybe<Void> deleteAllAlarms();
 }

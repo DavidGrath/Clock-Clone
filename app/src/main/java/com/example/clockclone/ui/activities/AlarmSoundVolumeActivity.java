@@ -36,7 +36,6 @@ import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-//TODO Why does zero volume still sound?
 public class AlarmSoundVolumeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ActivityAlarmSoundVolumeBinding binding;

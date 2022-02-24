@@ -158,7 +158,6 @@ public class TimerService extends Service implements TimerHelper {
         sharedPreferences = getSharedPreferences(Constants.APP_NAME, Context.MODE_PRIVATE);
         presets = new ArrayList<>();
         String presetsList = sharedPreferences.getString(Constants.Preferences.TIMER_PRESETS, "");
-        //TODO Fix empty string give single element
         if(!presetsList.isEmpty()) {
             String[] split = presetsList.split(",");
             for (String s : split) {

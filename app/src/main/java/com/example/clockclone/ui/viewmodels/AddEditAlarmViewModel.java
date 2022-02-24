@@ -80,8 +80,6 @@ public class AddEditAlarmViewModel extends AndroidViewModel {
     }
 
     public LiveData<AlarmFormUI> getAlarmFormUI() {
-        //TODO This is a workaround to prevent the queried DB entity from being returned. Please find
-        // a suitable alternative
         if(alarmFormUI != null) {
             alarmFormBehaviorSubject.onNext(alarmFormUI);
         }

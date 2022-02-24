@@ -45,7 +45,6 @@ public class AlarmFormUI extends BaseObservable {
         this.timestampMinute = timestampMinute;
         this.timestampAmPm = timestampAmPm;
         this.occurrenceDate = occurrenceDate;
-        //Todo test for past date
         this.occurrenceDateToday = occurrenceDateToday;
         this.daysOfWeek = new ObservableArrayList<>();
         this.daysOfWeek.addAll(daysOfWeek);
@@ -299,7 +298,6 @@ public class AlarmFormUI extends BaseObservable {
             if(occurrenceDateToday) {
                 int totalMinutesNow = (calendar.get(Calendar.HOUR_OF_DAY) * 60) + calendar.get(Calendar.MINUTE);
                 int totalMinutesSet = timestampHour * 60 + timestampMinute;
-                //TODO test something, equal to current minutes shows today instead of tomorrow
                 if(totalMinutesSet <= totalMinutesNow) {
                     if(occurrenceDate.get(Calendar.DAY_OF_YEAR) == calendar.get(Calendar.DAY_OF_YEAR)) {
                         occurrenceDate.add(Calendar.DAY_OF_YEAR, 1);
