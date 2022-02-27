@@ -154,7 +154,7 @@ public class StopwatchService extends Service implements StopwatchHelper {
 
         managerCompat = NotificationManagerCompat.from(this);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            buildChannel(Constants.Notification.ChannelID.STOPWATCH);
+            buildChannel();
         }
         Intent stopwatchBroadcastIntent = new Intent(this, StopwatchBroadcastReceiver.class);
 
@@ -280,11 +280,11 @@ public class StopwatchService extends Service implements StopwatchHelper {
             return;
         }
         lastTimeAppGoneToBackground = System.currentTimeMillis();
+        serviceInForeground = true;
         if (stopwatchState != StopwatchState.OFF) {
             startForeground(Constants.Notification.ID.STOPWATCH, buildNotification(time, stopwatchState));
             notificationUpdateHandler.post(notificationUpdateRunnable);
         }
-        serviceInForeground = true;
     }
 
     public void appComeToForeground() {
@@ -324,6 +324,7 @@ public class StopwatchService extends Service implements StopwatchHelper {
                 .setSmallIcon(R.drawable.ic_baseline_access_alarm_24)
                 .setContentTitle("Stopwatch")
                 .setContentText(formatted)
+                .setOnlyAlertOnce(true)
                 .setShowWhen(true)
                 .setWhen(lastTimeAppGoneToBackground)
                 .addAction(firstAction)
@@ -334,10 +335,10 @@ public class StopwatchService extends Service implements StopwatchHelper {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private void buildChannel(String id) {
-        NotificationChannelCompat channelCompat = new NotificationChannelCompat.Builder(id, NotificationManagerCompat.IMPORTANCE_MAX)
+    private void buildChannel() {
+        NotificationChannelCompat channelCompat = new NotificationChannelCompat.Builder(Constants.Notification.ChannelID.STOPWATCH, NotificationManagerCompat.IMPORTANCE_MAX)
                 .setVibrationEnabled(false)
-                .setName("Stopwatch")
+                .setName(Constants.Notification.ChannelName.STOPWATCH)
                 .build();
         managerCompat.createNotificationChannel(channelCompat);
     }
