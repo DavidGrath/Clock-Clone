@@ -206,23 +206,37 @@ public class TimerService extends Service implements TimerHelper {
                         stopForeground(true);
                         return;
                     }
-                    Notification timerNotification = buildNotification(timeLeft, timerState);
-                    notificationManagerCompat.notify(Constants.Notification.ID.TIMER, timerNotification);
-                    notificationUpdateHandler.postDelayed(this, 1_000L);
+                    if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+                        Notification notification = buildPreOreoNotification(timeLeft);
+                        startForeground(Constants.Notification.ID.TIMER, notification);
+                        notificationUpdateHandler.postDelayed(this, 1_000L);
+                    } else {
+                        Notification timerNotification = buildNotification(timeLeft, timerState);
+                        notificationManagerCompat.notify(Constants.Notification.ID.TIMER, timerNotification);
+                        notificationUpdateHandler.postDelayed(this, 1_000L);
+                    }
 //                }
             }
         };
     }
 
     private void appGoneToBackground() {
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            return;
-        }
         lastTimeAppGoneToBackground = System.currentTimeMillis();
         switch (timerState) {
             case OFF:
                 break;
-            case COUNTING:
+            case COUNTING: {
+                if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+                    Notification notification = buildPreOreoNotification(timeLeft);
+                    startForeground(Constants.Notification.ID.TIMER, notification);
+                    notificationUpdateHandler.post(notificationUpdateRunnable);
+                } else {
+                    Notification notification = buildNotification(timeLeft, timerState);
+                    startForeground(Constants.Notification.ID.TIMER, notification);
+                    notificationUpdateHandler.post(notificationUpdateRunnable);
+                }
+            }
+                break;
             case PAUSED: {
                 Notification notification = buildNotification(timeLeft, timerState);
                 startForeground(Constants.Notification.ID.TIMER, notification);
@@ -235,9 +249,6 @@ public class TimerService extends Service implements TimerHelper {
     }
 
     private void appComeToForeground() {
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            return;
-        }
         switch (timerState) {
             case OFF:
                 break;
@@ -422,6 +433,22 @@ public class TimerService extends Service implements TimerHelper {
                 .setContentIntent(timerPendingIntent)
                 .addAction(firstAction)
                 .addAction(secondAction)
+                .setAutoCancel(true)
+                .build();
+        return notification;
+    }
+
+    private Notification buildPreOreoNotification(long timeLeft) {
+        timerIntent = new Intent(this, MainActivity.class)
+                .putExtra(Constants.Extras.Titles.MAIN_ACTIVITY_FRAGMENT_INDEX, Constants.Positions.TIMER);
+        timerPendingIntent = PendingIntent.getActivity(this, REQUEST_CODE_TIMER, timerIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        String formatted = simpleDateFormat.format(timeLeft);
+        Notification notification = new NotificationCompat.Builder(this, Constants.Notification.ChannelID.TIMER)
+                .setSmallIcon(R.drawable.ic_baseline_hourglass_empty_24)
+                .setContentTitle("Timer")
+                .setContentText(formatted)
+                .setOnlyAlertOnce(true)
+                .setContentIntent(timerPendingIntent)
                 .setAutoCancel(true)
                 .build();
         return notification;
