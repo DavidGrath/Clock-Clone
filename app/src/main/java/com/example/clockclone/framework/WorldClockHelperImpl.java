@@ -169,10 +169,15 @@ public class WorldClockHelperImpl implements WorldClockHelper {
             if (getLocationCode(timeZone) == -1) {
                 cities.add(0, timeZone);
                 String join = TextUtils.join(",", cities);
-                sharedPreferences.edit().putString("SAVED_CITIES", join).apply();
                 //No longer using Toast. Appending "X" to make equals() return false
                 return saveLocKey(city)
                         .map((locationKey) -> "SUCCESS")
+                        .doOnSuccess(s -> {
+                            sharedPreferences.edit().putString("SAVED_CITIES", join).apply();
+                        })
+                        .doOnError(err -> {
+                            sharedPreferences.edit().putString("SAVED_CITIES", join).apply();
+                        })
                         .onErrorReturnItem("X-FAILURE");
             } else {
                 cities.add(0, timeZone);
@@ -246,6 +251,9 @@ public class WorldClockHelperImpl implements WorldClockHelper {
             final int index = i;
             if(getLocationCode(c.getTimeZone()) == -1) {
                 saveLocKey(c);
+                WorldClockCityInfo info = new WorldClockCityInfo(cities.get(index), null, WeatherState.ERROR);
+                cachedCities.set(index, info);
+                weatherInfoBehaviorSubject.onNext(cachedCities);
                 continue;
             }
             Single<WeatherInfo> weatherInfoMaybe = weatherClient.getWeatherCondition(getLocationCode(c.getTimeZone()));
