@@ -163,8 +163,6 @@ public class WorldClockRecyclerAdapter extends RecyclerView.Adapter<WorldClockRe
                     sb = temperature + DEGREE_SIGN;
                     binding.textviewWorldClockWeatherTemperature.setText(sb);
                     int resID = getWeatherIconResource(weatherInfo.getIcon());
-                    //TODO Can't control size. May come back to this if I find a fix
-//                    binding.textviewWorldClockWeatherTemperature.setCompoundDrawablesRelativeWithIntrinsicBounds(0, resID, 0, 0);
                     binding.imageviewWorldClockWeatherIcon.setImageResource(resID);
                     binding.framelayoutWeatherStatus.setVisibility(View.VISIBLE);
                     binding.progressbarWeatherDetails.setVisibility(View.GONE);

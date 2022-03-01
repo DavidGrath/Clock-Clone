@@ -310,7 +310,6 @@ public class WorldClockFragment extends Fragment implements View.OnClickListener
         } else if(item.getItemId() == R.id.menuitem_world_clock_update) {
             viewModel.updateWeatherInfo();
         } else if(item.getItemId() == R.id.menuitem_world_clock_settings) {
-            //TODO Make a dedicated settings screen and then change the item title back to "Weather settings"
             String currentUnitType = sharedPreferences.getString(Constants.Preferences.WEATHER_UNIT_TYPE, "METRIC");
             String newUnitType = currentUnitType.equals("METRIC") ? "IMPERIAL" : "METRIC";
             sharedPreferences.edit()
