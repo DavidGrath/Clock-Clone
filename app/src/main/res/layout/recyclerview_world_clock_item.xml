@@ -63,6 +63,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:visibility="gone"
         >
+<!--        I can't control size when setting TextView Drawable in Java, so using two separate views-->
+        <LinearLayout
+            android:id="@+id/linearlayout_world_clock_weather_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <ImageView
+                android:id="@+id/imageview_world_clock_weather_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_baseline_cloud_24"/>
         <TextView
             android:id="@+id/textview_world_clock_weather_temperature"
             android:layout_width="24dp"
@@ -71,9 +83,8 @@
             android:textColor="@color/black"
             android:textSize="12sp"
             android:textAlignment="center"
-            app:drawableTopCompat="@drawable/ic_baseline_cloud_24"
-            android:fontFamily="@font/samsung_clock_2016"
-            android:visibility="visible"/>
+            android:fontFamily="@font/samsung_clock_2016" />
+        </LinearLayout>
     <ProgressBar
         android:id="@+id/progressbar_weather_details"
         android:layout_width="24dp"

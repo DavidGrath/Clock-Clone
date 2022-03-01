@@ -62,6 +62,7 @@ public class WorldClockFragment extends Fragment implements View.OnClickListener
     private WorldClockRecyclerAdapter adapter;
     private SelectionTracker<Long> selectionTracker = null;
     private FragmentActivity activity;
+    private SharedPreferences sharedPreferences;
 
     private ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
         @Override
@@ -98,7 +99,7 @@ public class WorldClockFragment extends Fragment implements View.OnClickListener
     SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-            if(key.equals("UNIT_TYPE")) {
+            if(key.equals(Constants.Preferences.WEATHER_UNIT_TYPE)) {
                 WorldClockRecyclerAdapter.UNIT_TYPE unitType;
                 if(sharedPreferences.getString(key, "METRIC").equals("METRIC")) {
                     unitType = WorldClockRecyclerAdapter.UNIT_TYPE.METRIC;
@@ -206,9 +207,10 @@ public class WorldClockFragment extends Fragment implements View.OnClickListener
                 startActivity(intent);
             }
         };
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(Constants.APP_NAME, Context.MODE_PRIVATE);
+
+        sharedPreferences = requireContext().getSharedPreferences(Constants.APP_NAME, Context.MODE_PRIVATE);
         sharedPreferences.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
-        String unitTypeString = sharedPreferences.getString("UNIT_TYPE", "METRIC");
+        String unitTypeString = sharedPreferences.getString(Constants.Preferences.WEATHER_UNIT_TYPE, "METRIC");
         WorldClockRecyclerAdapter.UNIT_TYPE unitType;
         if(unitTypeString.equals("METRIC")) {
             unitType = WorldClockRecyclerAdapter.UNIT_TYPE.METRIC;
@@ -292,6 +294,14 @@ public class WorldClockFragment extends Fragment implements View.OnClickListener
     }
 
     @Override
+    public void onPrepareOptionsMenu(@NonNull @NotNull Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem unitTypeItem = menu.findItem(R.id.menuitem_world_clock_settings);
+        String currentUnitType = sharedPreferences.getString(Constants.Preferences.WEATHER_UNIT_TYPE, "METRIC");
+        unitTypeItem.setTitle(currentUnitType.equals("METRIC")? "Metric" : "Imperial");
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.menuitem_world_clock_edit) {
             if(actionMode == null) {
@@ -300,7 +310,12 @@ public class WorldClockFragment extends Fragment implements View.OnClickListener
         } else if(item.getItemId() == R.id.menuitem_world_clock_update) {
             viewModel.updateWeatherInfo();
         } else if(item.getItemId() == R.id.menuitem_world_clock_settings) {
-            Toast.makeText(requireContext(), "TODO Again!", Toast.LENGTH_SHORT).show();
+            //TODO Make a dedicated settings screen and then change the item title back to "Weather settings"
+            String currentUnitType = sharedPreferences.getString(Constants.Preferences.WEATHER_UNIT_TYPE, "METRIC");
+            String newUnitType = currentUnitType.equals("METRIC") ? "IMPERIAL" : "METRIC";
+            sharedPreferences.edit()
+                    .putString(Constants.Preferences.WEATHER_UNIT_TYPE, newUnitType)
+                    .apply();
         }
         return false;
     }

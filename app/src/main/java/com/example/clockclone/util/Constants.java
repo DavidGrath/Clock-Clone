@@ -8,6 +8,7 @@ public class Constants {
     public static class Preferences {
         public static final String TIMER_PRESETS = "timer_presets";
         public static final String SUNDAY_FIRST = "sunday_first";
+        public static final String WEATHER_UNIT_TYPE = "UNIT_TYPE";
     }
     public static final class Positions {
         public static final int ALARMS = 0;
